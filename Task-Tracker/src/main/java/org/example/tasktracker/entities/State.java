@@ -1,4 +1,4 @@
-package entities;
+package org.example.tasktracker.entities;
 
 import lombok.Data;
 

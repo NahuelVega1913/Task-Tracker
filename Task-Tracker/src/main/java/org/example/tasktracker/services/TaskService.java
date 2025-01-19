@@ -1,10 +1,11 @@
-package services;
+package org.example.tasktracker.services;
 
-import entities.State;
-import entities.Task;
+import org.example.tasktracker.dtos.TaskDTO;
+import org.example.tasktracker.entities.State;
+import org.example.tasktracker.entities.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import respositories.TaskRepository;
+import org.example.tasktracker.respositories.TaskRepository;
 
 import java.util.List;
 
@@ -13,8 +14,11 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-   public Task createTask(Task task) {
-        return this.taskRepository.save(task);
+   public Task createTask(TaskDTO task) {
+        Task taskEntity = new Task();
+        taskEntity.setName(task.getName());
+        taskEntity.setState(task.getState());
+        return this.taskRepository.save(taskEntity);
     }
     public List<Task> getAllTasks() {
         return this.taskRepository.findAll();

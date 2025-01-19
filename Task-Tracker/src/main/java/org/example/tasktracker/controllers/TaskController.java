@@ -1,22 +1,24 @@
-package controllers;
+package org.example.tasktracker.controllers;
 
-import entities.State;
-import entities.Task;
+import org.example.tasktracker.dtos.TaskDTO;
+import org.example.tasktracker.entities.State;
+import org.example.tasktracker.entities.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import services.TaskService;
+import org.example.tasktracker.services.TaskService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/task-tracker")
+@CrossOrigin("*")
 public class TaskController {
 
     @Autowired
     private TaskService taskService;
     @PostMapping("/create")
-    public ResponseEntity<Task> postTask(@RequestBody Task task) {
+    public ResponseEntity<Task> postTask(@RequestBody TaskDTO task) {
         Task taskEntity = this.taskService.createTask(task);
         return ResponseEntity.ok(taskEntity);
     }
