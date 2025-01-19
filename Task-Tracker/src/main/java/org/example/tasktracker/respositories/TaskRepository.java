@@ -10,7 +10,5 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-   default List<Task> findByState(State state){
-        return this.findByState(state);
-    }
+    List<Task> findByState(State state);
 }

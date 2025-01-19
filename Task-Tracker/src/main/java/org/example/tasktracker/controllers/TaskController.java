@@ -26,7 +26,7 @@ public class TaskController {
     public ResponseEntity<List<Task>> getAllTasks() {
         List<Task> tasks = this.taskService.getAllTasks();
         if(tasks.isEmpty()){
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.notFound().build();
         }
         else{
             return ResponseEntity.ok(tasks);
@@ -37,7 +37,7 @@ public class TaskController {
     public ResponseEntity<List<Task>> getAllByState(@PathVariable State state) {
         List<Task> tasks = this.taskService.getAllByState(state);
         if(tasks.isEmpty()){
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.notFound().build();
         }
         else{
             return ResponseEntity.ok(tasks);
@@ -61,8 +61,12 @@ public class TaskController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Task> deleteTask(@PathVariable Long id) {
         Boolean isDeleted = this.taskService.deleteTask(id);
-        if(!isDeleted){
+        if(isDeleted == null){
             return ResponseEntity.notFound().build();
+        }
+
+        if(!isDeleted){
+            return ResponseEntity.badRequest().build();
         }
         else{
             this.taskService.deleteTask(id);

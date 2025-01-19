@@ -36,8 +36,15 @@ public class TaskService {
         return this.taskRepository.save(taskEntity);
     }
     public Boolean deleteTask(Long id) {
+        if(this.taskRepository.findById(id).isEmpty()){ return null;};
         this.taskRepository.deleteById(id);
-        return true;
+        if(this.taskRepository.findById(id).isPresent()){
+            return false;
+        }
+        else{
+            return true;
+        }
+
 
     }
 }
